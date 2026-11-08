@@ -1,0 +1,38 @@
+{
+  "reason": "The old LAN helper selected the first non-loopback IPv4 address, including a point-to-point TUN. The TUN reported connect success even after the independent loopback listener was closed. A real active broadcast LAN address rejected the same listener port.",
+  "probeTransport": "Darwin sockets; no URLSession proxy involved",
+  "productionCoreModified": false,
+  "testFile": "Tests/CleanRoomCoreTests/ConnectedChecks.swift",
+  "baselineExitCode": 1,
+  "baselineFailure": "listener does not accept LAN interface",
+  "assertionsPreserved": [
+    "127.0.0.2 rejects the loopback listener",
+    "every active running broadcast non-loopback non-point-to-point IPv4 address rejects the listener"
+  ],
+  "syntheticInterfaceFlagChecks": 5,
+  "focusedRuns": [
+    {
+      "exitCode": 0,
+      "passed": true,
+      "output": "PASS focused OAuth + paged provider mocks; 12 mocked providers/API flows and 4 loopback lifecycle fixtures\n"
+    },
+    {
+      "exitCode": 0,
+      "passed": true,
+      "output": "PASS focused OAuth + paged provider mocks; 12 mocked providers/API flows and 4 loopback lifecycle fixtures\n"
+    }
+  ],
+  "passed": true,
+  "testSourceSHA256": "73b2bfe00f7bde64ed4939b6c0d93751200ae812418a1dcc213494d741b7dfdc",
+  "focusedCommand": "swiftc -I .build/arm64-apple-macosx/debug/Modules -I Sources/CSQLite Tests/CleanRoomCoreTests/ConnectedChecks.swift <generated main with existing check helpers and runConnectedChecks()> .build/arm64-apple-macosx/debug/CleanRoomCore.build/*.swift.o -lsqlite3 -o <generated executable>; run generated executable",
+  "generatedHarnessRemoved": true,
+  "externalCredentialsOrAccountsUsed": false,
+  "independentSocketEvidence": {
+    "loopbackConnected": true,
+    "alternateLoopbackConnected": false,
+    "activeBroadcastLANConnected": false,
+    "pointToPointTunnelConnected": true,
+    "sameTunnelConnectedAfterLoopbackListenerClosed": true,
+    "requestDataSent": false
+  }
+}

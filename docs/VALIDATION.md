@@ -25,6 +25,14 @@
 
 低内存设计的依据是落盘、分页和流式处理。真实场景随文件数量、大小、目录结构、权限、磁盘速度与系统压力变化；需要用同版本和同工作负载测量。
 
+## 本次公开发布核验（2026-11-08）
+
+- 公开仓库源文件与本地提交逐一 Git blob 核对，Release 各资产 SHA-256 与本地产物一致。
+- 实际从 GitHub 获取公开安装脚本，再下载最新 Release 到脚本自有临时安装目录；校验和、ZIP / bundle / 架构 / strict 签名通过，安装后的可执行文件与原 0.6.2 构建一致。没有安装到用户应用目录或打开应用，生成夹具已清理。[网络安装回执](network-install-check.json)
+- 安装/打包 11 个隔离场景通过，覆盖校验失败、错误 ZIP、符号链接、外来目标和目标占用拒绝等。[脚本回执](install-checks.json)
+- 本次重新运行 Core：43/44 组通过，唯一失败来自隐藏 OAuth 模块的测试探针把 VPN 点对点 TUN 误当 LAN；独立 socket 证据显示该 TUN 在监听关闭后仍报告连接成功。仅修正测试的接口分类，保留 `127.0.0.2` 和所有真实活动广播 LAN 拒绝断言，新增 5 条合成 flags 断言；修后该组聚焦连续两次通过。没有再把整个 44 组重跑，也未改产品 Core。[探针回执](connected-probe-check.json)
+- GitHub Actions 首次运行及一次重试在分配 runner / 执行任何步骤之前即被取消（runner_id 为 0、steps 为空），API 没有提供明确原因；不能算作 CI 成功。另一次由版本 tag 触发的运行同样取消。保留工作流供后续运行，[查看 Actions](https://github.com/yubowen123/AIYOUClean/actions)。
+
 ## 尚未覆盖
 
 - Intel 二进制、所有 macOS 版本、完整硬件矩阵。

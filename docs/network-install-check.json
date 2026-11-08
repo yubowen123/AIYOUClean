@@ -1,0 +1,14 @@
+{
+  "generatedFixtureOnly": true,
+  "systemInstallation": false,
+  "appOpened": false,
+  "realHomeScannedOrCleaned": false,
+  "passed": true,
+  "scriptMatchesPublishedSource": true,
+  "exitCode": 0,
+  "output": "Installed AIYOUClean 0.6.2 to <generated-fixture>/Applications/AIYOUClean.app\nOpen the app from Finder. macOS may require Privacy & Security → Open Anyway.\nThis installer does not grant Full Disk Access or start a scan.\n",
+  "installedExecutableMatchesRelease": true,
+  "strictSignatureValid": true,
+  "fixturesRemoved": true,
+  "seconds": 44.58
+}

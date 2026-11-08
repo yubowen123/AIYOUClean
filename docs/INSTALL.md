@@ -5,7 +5,7 @@
 ## 下载后打开
 
 1. 到 [GitHub Releases](https://github.com/yubowen123/AIYOUClean/releases/latest) 下载 `AIYOUClean-0.6.2-macOS-arm64.zip` 和 `SHA256SUMS`。
-2. 如需校验，将两者放进同一目录，在该目录执行 `shasum -a 256 -c SHA256SUMS`。
+2. 如需校验，在下载目录执行 `shasum -a 256 AIYOUClean-0.6.2-macOS-arm64.zip`，对照 `SHA256SUMS` 中同名文件的一行；清单也包含可选 CLI 的校验值。
 3. 解压，将 `AIYOUClean.app` 拖进 `~/Applications` 或“应用程序”。升级前先让已有检测结束，退出旧应用。
 4. 在 Finder 中打开应用。安装本身不会开始检测或删除文件。
 

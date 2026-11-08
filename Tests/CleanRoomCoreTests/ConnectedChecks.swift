@@ -258,20 +258,28 @@ private func connectedProbeTCP(_ address: String, port: UInt16) -> Bool {
     guard getsockopt(descriptor, SOL_SOCKET, SO_ERROR, &failure, &size) == 0 else { return false }
     return failure == 0
 }
-private func connectedLANIPv4() -> String? {
+private func connectedIsLANInterface(flags: UInt32) -> Bool {
+    let required = UInt32(IFF_UP | IFF_RUNNING | IFF_BROADCAST)
+    let excluded = UInt32(IFF_LOOPBACK | IFF_POINTOPOINT)
+    return flags & required == required && flags & excluded == 0
+}
+private func connectedLANIPv4Addresses() -> [String] {
+    // A point-to-point VPN/TUN address is not a LAN interface. A TUN may report
+    // successful connects even for closed ports, independently of this listener.
     var head: UnsafeMutablePointer<ifaddrs>?
-    guard getifaddrs(&head) == 0 else { return nil }; defer { freeifaddrs(head) }
-    var node = head
+    guard getifaddrs(&head) == 0 else { return [] }; defer { freeifaddrs(head) }
+    var node = head, addresses: [String] = []
     while let current = node {
         defer { node = current.pointee.ifa_next }
-        guard let address = current.pointee.ifa_addr, address.pointee.sa_family == UInt8(AF_INET), current.pointee.ifa_flags & UInt32(IFF_LOOPBACK) == 0 else { continue }
+        guard let address = current.pointee.ifa_addr, address.pointee.sa_family == UInt8(AF_INET),
+              connectedIsLANInterface(flags: current.pointee.ifa_flags) else { continue }
         var text = [CChar](repeating: 0, count: Int(INET_ADDRSTRLEN))
         let endpoint = UnsafeRawPointer(address).assumingMemoryBound(to: sockaddr_in.self)
         var ip = endpoint.pointee.sin_addr
         guard inet_ntop(AF_INET, &ip, &text, socklen_t(text.count)) != nil else { continue }
-        return String(cString: text)
+        addresses.append(String(cString: text))
     }
-    return nil
+    return addresses
 }
 private func connectedWaitForClosedPort(_ port: UInt16) async throws {
     for _ in 0..<20 {
@@ -299,7 +307,15 @@ private func connectedLoopbackChecks() async throws -> Int {
         let port = UInt16(try unwrap(URLComponents(string: bound.redirectURI)?.port))
         try expectConnected(URL(string: bound.redirectURI)?.host == "127.0.0.1" && port != 0, "listener advertises literal IPv4 loopback")
         try expectConnected(!connectedProbeTCP("127.0.0.2", port: port), "listener is not wildcard-bound")
-        if let lan = connectedLANIPv4() { try expectConnected(!connectedProbeTCP(lan, port: port), "listener does not accept LAN interface") }
+        let lanFlags = UInt32(IFF_UP | IFF_RUNNING | IFF_BROADCAST)
+        try expectConnected(connectedIsLANInterface(flags: lanFlags), "active broadcast LAN interface is probed")
+        try expectConnected(!connectedIsLANInterface(flags: lanFlags | UInt32(IFF_LOOPBACK)), "loopback is not mistaken for LAN")
+        try expectConnected(!connectedIsLANInterface(flags: lanFlags | UInt32(IFF_POINTOPOINT)), "point-to-point tunnel is not mistaken for LAN")
+        try expectConnected(!connectedIsLANInterface(flags: UInt32(IFF_UP | IFF_RUNNING | IFF_POINTOPOINT)), "TUN interfaces are not LAN probes")
+        try expectConnected(!connectedIsLANInterface(flags: UInt32(IFF_UP | IFF_BROADCAST)), "inactive LAN interface is not probed")
+        for lan in connectedLANIPv4Addresses() {
+            try expectConnected(!connectedProbeTCP(lan, port: port), "listener does not accept any active broadcast LAN interface")
+        }
         let store = ConnectedMemoryStore()
         let mock = ConnectedMockTransport([try connectedJSON(["access_token":"test-only-noncredential","token_type":"Bearer","expires_in":3600,"scope":base.scopes.joined(separator:" ")])])
         let client = try ConnectedAccountClient(configuration: base, transport: mock, tokenStore: store)
