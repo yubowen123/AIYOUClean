@@ -1,0 +1,21 @@
+name: macOS checks
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  core-and-build:
+    runs-on: macos-14
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Swift toolchain
+        run: swift --version
+      - name: Core behavioral checks using generated fixtures
+        run: swift run --jobs 4 CleanRoomChecks
+      - name: Build native app and CLI
+        run: bash scripts/build.sh
+      - name: Validate distribution scripts
+        run: bash -n scripts/install.sh scripts/package-release.sh

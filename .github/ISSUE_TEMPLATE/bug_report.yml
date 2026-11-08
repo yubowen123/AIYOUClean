@@ -1,0 +1,22 @@
+name: 问题反馈
+description: 提供可复现的问题，帮助改进扫描与处理流程。
+body:
+  - type: input
+    id: version
+    attributes:
+      label: AIYOUClean / macOS 版本与芯片
+      placeholder: 例如 0.6.2 / macOS 26 / Apple Silicon
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 操作步骤、预期与实际结果
+      description: 请说明页面，以及发生在扫描、汇总、翻页、清理还是恢复阶段。
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 去掉个人信息的截图或日志
+      description: 不要上传完整扫描库、真实文件清单、账号或凭证。

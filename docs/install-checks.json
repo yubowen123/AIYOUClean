@@ -1,0 +1,85 @@
+{
+  "passed": true,
+  "generatedFixturesOnly": true,
+  "systemInstallation": false,
+  "networkDownloadTested": false,
+  "originalBundleUnchanged": true,
+  "fixturesRemoved": true,
+  "cases": [
+    {
+      "case": "package-existing-signed-bundle",
+      "passed": true,
+      "exitCode": 0,
+      "output": "No errors detected in compressed data of <package-scratch>/AIYOUClean-0.6.2-macOS-arm64.zip.\nRelease artifacts: <generated-fixture>/release\n"
+    },
+    {
+      "case": "isolated-install",
+      "passed": true,
+      "exitCode": 0,
+      "output": "Installed AIYOUClean 0.6.2 to <generated-fixture>/Applications/AIYOUClean.app\nOpen the app from Finder. macOS may require Privacy & Security → Open Anyway.\nThis installer does not grant Full Disk Access or start a scan.\n"
+    },
+    {
+      "case": "isolated-replace-existing-app",
+      "passed": true,
+      "exitCode": 0,
+      "output": "Installed AIYOUClean 0.6.2 to <generated-fixture>/Applications/AIYOUClean.app\nOpen the app from Finder. macOS may require Privacy & Security → Open Anyway.\nThis installer does not grant Full Disk Access or start a scan.\n"
+    },
+    {
+      "case": "checksum-mismatch-rejected",
+      "passed": true,
+      "exitCode": 1,
+      "output": "AIYOUClean: SHA-256 mismatch; nothing installed.\n"
+    },
+    {
+      "case": "unsafe-destination-rejected",
+      "passed": true,
+      "exitCode": 1,
+      "output": "AIYOUClean: Refusing an unsafe destination.\n"
+    },
+    {
+      "case": "archive-traversal-rejected",
+      "passed": true,
+      "exitCode": 1,
+      "output": "AIYOUClean: ZIP must contain one AIYOUClean app and safe relative paths.\n"
+    },
+    {
+      "case": "target-symlink-rejected",
+      "passed": true,
+      "exitCode": 1,
+      "output": "AIYOUClean: Refusing to replace a symlink.\n"
+    },
+    {
+      "case": "existing-package-no-overwrite",
+      "passed": true,
+      "exitCode": 1,
+      "output": "Refusing to overwrite release artifacts. Use a new output directory.\n"
+    },
+    {
+      "case": "in-use-destination-rejected",
+      "passed": true,
+      "exitCode": 1,
+      "output": "AIYOUClean: AIYOUClean is running. Finish its task, quit the app yourself, then retry.\n"
+    },
+    {
+      "case": "archive-symlink-rejected",
+      "passed": true,
+      "exitCode": 1,
+      "output": "AIYOUClean: Unexpected symlink in release ZIP.\n"
+    },
+    {
+      "case": "foreign-target-rejected",
+      "passed": true,
+      "exitCode": 1,
+      "output": "AIYOUClean: The existing target is not AIYOUClean.\n"
+    }
+  ],
+  "sourceSHA256": {
+    "scripts/install.sh": "85be83f4e9512bdf6c042c6624c9e011e8402679c72a474d1855be32d93b6390",
+    "scripts/package-release.sh": "fb5844b4218afcaa51abec7ddf3de84b65be2cc3e5f8d5ade480b032e41bc8a5",
+    ".github/workflows/ci.yml": "740ccb73fbd30ccfcb04125fb76a743ac7b394dd55cb9a79e01bdee303ded8ea"
+  },
+  "failureInjectionLimits": [
+    "Post-placement backup-cleanup failure and rollback-move failure were not injected."
+  ],
+  "ciCheckout": "actions/checkout v7.0.1 pinned to verified official commit; workflow execution recorded by GitHub Actions separately"
+}

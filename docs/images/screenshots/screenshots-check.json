@@ -1,0 +1,41 @@
+{
+  "allDataGenerated": true,
+  "passed": true,
+  "screenshots": [
+    {
+      "contentView": "SmartCareView",
+      "footerTextVerified": "清理所选",
+      "image": "smart-processable.png",
+      "mode": "processable",
+      "rows": 6,
+      "selected": 2,
+      "sha256": "d0a9d01b9f7413a038df27704eb5334984af0e7dcce8e7f6eabff55996a0f106"
+    },
+    {
+      "contentView": "SmartCareView",
+      "footerTextVerified": "只读发现仅供查看",
+      "image": "smart-readonly.png",
+      "mode": "readOnly",
+      "rows": 3,
+      "selected": 0,
+      "sha256": "4b6706191fa0a24ce7ffb6f8640f48bb03b06dfb1f77c59e7b3a39546c3a8fa4"
+    },
+    {
+      "contentView": "SmartCareView",
+      "footerTextVerified": "访问问题仅供查看",
+      "image": "smart-issues.png",
+      "mode": "issues",
+      "rows": 4,
+      "selected": 0,
+      "sha256": "10aaa551e66e421ecab760857312420080d85715b62f6cb696b44ef72c2bb314"
+    },
+    {
+      "contentView": "ScanView",
+      "footerTextVerified": "清理所选",
+      "image": "duplicates.png",
+      "rows": 3,
+      "selected": 1,
+      "sha256": "1b4f87743e52fef7653a8a88d2f76908fc9e346ca1e8ed07fd068b3da8eef5b8"
+    }
+  ]
+}

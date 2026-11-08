@@ -1,0 +1,25 @@
+{
+  "kind": "production-swiftui-content-documentation-screenshots",
+  "version": "0.6.2",
+  "data": "generated /Users/demo paths and sizes; no user content",
+  "userAppControlled": false,
+  "realHomeAccessed": false,
+  "realFilesScannedOrCleaned": false,
+  "viewScope": "production content views, no sidebar; outer documentation label added",
+  "sourceSHA256": {
+    "SmartCareView.swift": "19b5a8acf5f700e97d7940c9e205fd29e3fb28c737433912bc7f7054b2b0920e",
+    "AppState.swift": "332391f2faf899f5152761f76e8314f5868e38d9f0e7ee15296e3b737b065216",
+    "MainView.swift": "d10aa1d30c79bfcd0f5d9744a515e04f07e1747e3be0df44b20f97798aecb5a0",
+    "SupportingViews.swift": "3bc32f7e0da3855b5328f15ddc00e00c8b5803c41b9bcd5d4573cd2e55bede18",
+    "PermissionGuideView.swift": "afe7fe20cc12457c2720eaa8bde8598b513f4158f1dfc25bf39776b1f548cf57",
+    "DetectionTaskCenter.swift": "5bb4bd8b2062b5998d23ef991b5227c0c6cb04c21590a4c356c78305f170ffdb"
+  },
+  "passed": true,
+  "transforms": [
+    "expose state access only in temporary copies",
+    "SmartCareReport/ModuleSummary constructible documentation equivalents",
+    "scan/cleanup/file dialogs disabled in temporary copy",
+    "AppState telemetry fixture and generated-home history factory",
+    "other unused destinations are compile-only EmptyView stubs"
+  ]
+}

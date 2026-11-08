@@ -1,0 +1,25 @@
+# Build outputs and local generated fixtures
+.build/
+.swiftpm/
+dist/
+release-assets/
+.test-fixtures/
+.perf-build/
+.perf-fixtures/
+.perf-ui-fixtures/
+.ui-validation/
+.layout-check-*/
+__pycache__/
+*.pyc
+.DS_Store
+
+# Local investigations, reports and original commercial-app materials
+analysis/
+work/
+.aiyoucodex-thread.json
+.env
+.env.*
+*.sqlite
+*.sqlite-*
+*.db
+*.db-*
